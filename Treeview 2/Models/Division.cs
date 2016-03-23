@@ -5,7 +5,9 @@ using System.Web;
 
 namespace Treeview_2.Models
 {
-    public class Division : Base
+    public class Division 
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

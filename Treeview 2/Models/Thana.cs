@@ -5,7 +5,12 @@ using System.Web;
 
 namespace Treeview_2.Models
 {
-    public class Thana : Base
+    public class Thana 
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int DistrictId { get; set; }
+
+        public virtual District District { get; set; }
     }
 }
