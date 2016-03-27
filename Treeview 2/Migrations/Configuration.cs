@@ -29,7 +29,7 @@ namespace Treeview_2.Migrations
             //
             foreach (Enums item in Enum.GetValues(typeof(Enums)))
             {
-                context.TreeHierarchys.Add(new TreeHierarchy()
+                context.TreeHierarchys.AddOrUpdate(new TreeHierarchy()
                 {
                     Id= (int)item,
                     Title = item.ToString()
