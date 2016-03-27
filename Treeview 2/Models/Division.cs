@@ -9,6 +9,7 @@ namespace Treeview_2.Models
     public class Division 
     {
         public int Id { get; set; }
+        [Display(Name = "Division")]
         public string Name { get; set; }
         [Display(Name = "Base")]
         public int BaseId { get; set; }

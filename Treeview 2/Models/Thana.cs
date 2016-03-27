@@ -9,6 +9,7 @@ namespace Treeview_2.Models
     public class Thana 
     {
         public int Id { get; set; }
+        [Display(Name = "Thana/Upazila")]
         public string Name { get; set; }
         [Display(Name = "District")]
         public int DistrictId { get; set; }

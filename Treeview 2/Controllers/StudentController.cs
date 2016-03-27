@@ -17,7 +17,7 @@ namespace Treeview_2.Controllers
         // GET: Student
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.School);
+            var students = db.Students.Include(s => s.SchoolClass);
             return View(students.ToList());
         }
 
@@ -56,7 +56,7 @@ namespace Treeview_2.Controllers
                 db.SaveChanges();
 
                 int parentId = 0;
-                var parent = db.Treeviews.Where(i => i.HierarchyTypeId == (int)Enums.School && i.KeyOfThatHierarchy == student.SchoolId);
+                var parent = db.Treeviews.Where(i => i.HierarchyTypeId == (int)Enums.SchoolClass && i.KeyOfThatHierarchy == student.SchoolClassId);
                 if (parent != null)
                     parentId = parent.FirstOrDefault().Id;
                 var treeview = new Treeview { HierarchyTypeId = (int)Enums.Student, KeyOfThatHierarchy = student.Id, Label = student.Name, ParentId = parentId };
@@ -66,7 +66,7 @@ namespace Treeview_2.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolClassId);
             return View(student);
         }
 
@@ -82,7 +82,7 @@ namespace Treeview_2.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolClassId);
             return View(student);
         }
 
@@ -99,7 +99,7 @@ namespace Treeview_2.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name", student.SchoolClassId);
             return View(student);
         }
 
