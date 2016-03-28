@@ -24,8 +24,32 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Division", "Index", "Division")</li>
+                            <li>@Html.ActionLink("District", "Index", "District")</li>
+                            <li>@Html.ActionLink("Thana/Upazilla", "Index", "Thana")</li>
+                            <li>@Html.ActionLink("Union/Ward", "Index", "Union")</li>
+                            <li>@Html.ActionLink("Village/Area", "Index", "Village")</li>
+                            <li>@Html.ActionLink("School", "Index", "School")</li>
+                            <li>@Html.ActionLink("School Class", "Index", "SchoolClass")</li>
+                            <li>@Html.ActionLink("Subject", "Index", "Subject")</li>
+                            <li class="dropdown-submenu">
+                                @Html.ActionLink("Student", "Index", "Student")
+                            <a tabindex="-1" href="#">More options</a>
+                            <ul class="dropdown-menu">
+                                <li>1</li>
+                                <li>2</li>
+                            </ul>
+                        </li>
+                            <li>@Html.ActionLink("Result", "Index", "Result")</li>
+
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                  
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
