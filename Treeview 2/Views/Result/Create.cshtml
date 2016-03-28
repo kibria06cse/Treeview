@@ -14,6 +14,40 @@
         <h4>Result</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SchoolId, "School", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SchoolId",null,"Select School", htmlAttributes: new { @class = "form-control", @onchange="loadClass()"})
+                @Html.ValidationMessageFor(model => model.SchoolId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassId, "Class", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ClassId", null,"Select Class", htmlAttributes: new { @class = "form-control", @onchange = "loadStudentAndSubject()" })
+                @Html.ValidationMessageFor(model => model.ClassId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId, "Student", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StudentId", null,"Select Student", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubjectId, "Subject", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SubjectId", null,"Select Subject", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.Grade, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -30,21 +64,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StudentId, "Student", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SubjectId, "Subject", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("SubjectId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SubjectId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -57,3 +77,76 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts{
+<script>
+    
+
+    function loadClass() {
+        var schoolId = $("#SchoolId").val();
+        $("#ClassId").empty();
+        $.ajax({
+            type: "GET",
+            url: '/Result/GetClasses?SchoolId=' + schoolId,
+            dataType: 'json',
+            data: JSON.stringify({ SchoolId: schoolId }),
+            success: function (data) {
+                var markup = "<option value='0'>Select Class</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#ClassId").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+    function loadStudentAndSubject(){
+        loadStudent();
+        loadSubject();
+    }
+    function loadStudent() {
+        var schoolId = $("#SchoolId").val();
+        var classId = $("#ClassId").val();
+        $.ajax({
+            type: "GET",
+            url: '/Result/GetStudents?SchoolId=' + schoolId +'&ClassId=' +classId,
+            dataType: 'json',
+            data: JSON.stringify({ SchoolId: schoolId, ClassId:classId }),
+            success: function (data) {
+                var markup = "<option value='0'>Select Student</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#StudentId").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+    function loadSubject() {
+        var schoolId = $("#SchoolId").val();
+        var classId = $("#ClassId").val();
+        $.ajax({
+            type: "GET",
+            url: '/Result/GetSubjects?SchoolId=' + schoolId + '&ClassId=' + classId,
+            dataType: 'json',
+            data: JSON.stringify({ SchoolId: schoolId, ClassId: classId }),
+            success: function (data) {
+                var markup = "<option value='0'>Select Student</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#SubjectId").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    }
+    </script>
+}

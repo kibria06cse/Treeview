@@ -17,7 +17,7 @@ namespace Treeview_2.Controllers
         // GET: Result
         public ActionResult Index()
         {
-            var results = db.Results.Include(r => r.Student).Include(r => r.Subject);
+            var results = db.Results.Include(r => r.Student).Include(r => r.Subject).Include(r=>r.School);
             return View(results.ToList());
         }
 
@@ -39,8 +39,10 @@ namespace Treeview_2.Controllers
         // GET: Result/Create
         public ActionResult Create()
         {
-            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name");
-            ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name");
+            ViewBag.StudentId = new SelectList(new List<Student>(), "Id", "Name");
+            ViewBag.SubjectId = new SelectList(new List<Subject>(), "Id", "Name");
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name");
+            ViewBag.ClassId = new SelectList(new List<SchoolClass>(), "Id", "Name");
             return View();
         }
 
@@ -49,7 +51,7 @@ namespace Treeview_2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Grade,MarkPercentage,StudentId,SubjectId")] Result result)
+        public ActionResult Create(Result result)
         {
             if (ModelState.IsValid)
             {
@@ -58,8 +60,10 @@ namespace Treeview_2.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", result.StudentId);
-            ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name", result.SubjectId);
+            ViewBag.StudentId = new SelectList(new List<Student>(), "Id", "Name", result.StudentId);
+            ViewBag.ClassId = new SelectList(new List<SchoolClass>(), "Id", "Name", result.StudentId);
+            ViewBag.SubjectId = new SelectList(new List<Subject>(), "Id", "Name", result.SubjectId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name");
             return View(result);
         }
 
@@ -76,7 +80,9 @@ namespace Treeview_2.Controllers
                 return HttpNotFound();
             }
             ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", result.StudentId);
+            ViewBag.ClassId = new SelectList(db.SchoolClasses, "Id", "Name", result.StudentId);
             ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name", result.SubjectId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name");
             return View(result);
         }
 
@@ -94,7 +100,9 @@ namespace Treeview_2.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.StudentId = new SelectList(db.Students, "Id", "Name", result.StudentId);
+            ViewBag.ClassId = new SelectList(db.SchoolClasses, "Id", "Name", result.StudentId);
             ViewBag.SubjectId = new SelectList(db.Subjects, "Id", "Name", result.SubjectId);
+            ViewBag.SchoolId = new SelectList(db.Schools, "Id", "Name");
             return View(result);
         }
 
@@ -122,6 +130,27 @@ namespace Treeview_2.Controllers
             db.Results.Remove(result);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetStudents(int SchoolId, int ClassId)
+        {
+            var students = db.Students.Where(i => i.SchoolClass.SchoolId == SchoolId && i.SchoolClassId== ClassId);
+            var studentsList = new SelectList(students, "Id", "Name");
+            return Json(studentsList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetSubjects(int SchoolId, int ClassId)
+        {
+            var subjects = db.Subjects.Where(i => i.SchoolClass.SchoolId == SchoolId && i.SchoolClassId == ClassId);
+            var subjectsList = new SelectList(subjects, "Id", "Name");
+            return Json(subjectsList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetClasses(int SchoolId)
+        {
+            var classes = db.SchoolClasses.Where(i => i.SchoolId == SchoolId);
+            var classList = new SelectList(classes, "Id", "Name");
+            return Json(classList, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
