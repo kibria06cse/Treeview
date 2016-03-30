@@ -1,0 +1,42 @@
+﻿@model Treeview_2.Models.ResultByClassViewModel
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Student</th>
+            <th>Subject Name</th>
+            <th>Achieved Mark</th>
+            <th>Grade</th>
+        </tr>
+        @if (Model != null)
+        {
+            for (int i = 0; i < Model.ResultWithStudent.Count; i++)
+            {
+                @Html.HiddenFor(m => Model.ResultWithStudent[i].StudentId)
+                @Html.HiddenFor(m => Model.ResultWithStudent[i].ClassId)
+                @Html.HiddenFor(m => Model.ResultWithStudent[i].SchoolId)
+                @Html.HiddenFor(m => Model.ResultWithStudent[i].SubjectId)
+                <tr>
+                    <td>
+                        @Model.ResultWithStudent[i].Student.Name
+                    </td>
+
+                    <td>
+                        @Model.ResultWithStudent[i].Subject.Name
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => Model.ResultWithStudent[i].MarkPercentage)
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => Model.ResultWithStudent[i].Grade)
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <input type="submit" title="Save" />
+    </div>
+</div>

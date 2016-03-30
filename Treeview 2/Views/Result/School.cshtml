@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "School";
+    int SchoolId = 0;
+    int.TryParse(@Request.QueryString["SchoolId"], out SchoolId);
+}
+
+<h2>School</h2>
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-9 col-md-10">
+            @Html.ActionLink("Add Result By Class", "ResultByClass", "School", new { SchoolId = SchoolId }, new { @class = "btn-primary  btn" })
+            @Html.ActionLink("Add Result By Student", "Submit", "Submit", new { SchoolId = SchoolId }, new { @class = "btn-primary  btn" })
+            @Html.ActionLink("Add Result By Subject", "AddResultBySubject", "School", new { SchoolId = SchoolId }, new { @class = "btn-primary  btn" })
+    
+        </div>
+    </div>
+</form>
+

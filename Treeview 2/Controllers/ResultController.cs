@@ -153,6 +153,12 @@ namespace Treeview_2.Controllers
             return Json(classList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult School(int SchoolId)
+        {
+            return View();
+        }
+
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -1,0 +1,55 @@
+﻿@model Treeview_2.Models.ResultByClassViewModel
+
+@{
+    ViewBag.Title = "ResultByClass";
+}
+
+<h2>ResultByClass</h2>
+@using(Html.BeginForm("ResultByClass","School",FormMethod.Post))
+{ 
+<div class="form-horizontal">
+    <div class="form-group">
+        <div class="col-md-3">
+            <label>Search Student By Class</label>
+            @*@Html.Label("Search Student By Class", new { @class="form-control"})*@
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownListFor(m=>m.ClassId,ViewBag.ClassList as IEnumerable<SelectListItem>, "Select Class", new { @class = "form-control" })
+        </div>
+        <div class="col-md-4">
+            <button id="btnSearch" class="btn btn-primary" type="button" onclick="getClassResult()">Search</button>
+        </div>
+    </div>
+    <div class="row" id="divPartial">
+        @Html.Partial("_ResultByClass",Model)
+        <div class="col-md-3">
+            <input type="submit" title="Save" />
+        </div>
+    </div>
+</div>
+
+}
+@section Scripts{
+<script type ="text/javascript">
+    $(document).ready(function () {
+        $("#divPartial").hide();
+    });
+    function getClassResult() {
+        var classId = $("#ClassId").val();
+        var formData = $("#form-Search").serializeArray();
+        $.ajax({
+            type: "GET",
+            url: "/School/GetClassResultWithStudent",
+            data: { viewModel: formData, classId: classId },
+            success: success,
+        });
+        return false;
+    }
+
+    function success(result)
+    {
+        $("#divPartial").show();
+        $('div#divPartial').html(result);
+    }
+    </script>
+}

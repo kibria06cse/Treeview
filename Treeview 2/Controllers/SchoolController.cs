@@ -137,5 +137,46 @@ namespace Treeview_2.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public ActionResult ResultByClass(int SchoolId)
+        {
+            ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == SchoolId), "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResultByClass(ResultByClassViewModel viewModel)
+        {
+            return RedirectToAction("ResultByClass", new { SchoolId = viewModel.ClassId });
+        }
+
+        public ActionResult GetClassResultWithStudent(ResultByClassViewModel viewModel)
+        {
+            var result = db.Results.Where(i => i.ClassId == viewModel.ClassId).ToList();
+            viewModel.ResultWithStudent = result;
+            return PartialView("_ResultByClass", viewModel);
+        }
+        [HttpGet]
+        public ActionResult GetStudentByClass(int ClassId)
+        {
+            var students = db.Students.Where(i => i.SchoolClassId == ClassId);
+            var studentsList = new SelectList(students, "Id", "Name");
+            return Json(studentsList, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult GetSubjectsByClass(int ClassId)
+        {
+            var subjcts = db.Subjects.Where(i => i.SchoolClassId == ClassId);
+            var subjectsList = new SelectList(subjcts, "Id", "Name");
+            return Json(subjectsList, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult AddResultBySubject(int SchoolId)
+        {
+            ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == SchoolId), "Id", "Name");
+            
+            return View();
+        }
     }
 }
