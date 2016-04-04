@@ -235,6 +235,25 @@ namespace Treeview_2.Controllers
         {
             ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == viewModel.SchoolId), "Id", "Name");
 
+            var subjects = db.Subjects.Where(i => i.SchoolClassId == viewModel.ClassId).ToList();
+            foreach (var subject in subjects)
+            {
+                var grade = form["Grade_" + subject.Id].ToString();
+                var markString = form["Mark_" + subject.Id].ToString();
+                double mark = 0.0;
+                double.TryParse(markString, out mark);
+                var result = new Result()
+                {
+                    ClassId = viewModel.ClassId,
+                    Grade = grade,
+                    MarkPercentage = mark,
+                    SchoolId = viewModel.SchoolId,
+                    StudentId = viewModel.StudentId,
+                    SubjectId = subject.Id
+                };
+                db.Results.Add(result);
+            }
+            db.SaveChanges();
             return View();
         }
     }
