@@ -153,7 +153,7 @@ namespace Treeview_2.Controllers
 
         public ActionResult GetClassResultWithStudent(ResultByClassViewModel viewModel)
         {
-            var result = db.Results.Where(i => i.ClassId == viewModel.ClassId).ToList();
+            var result = db.Results.Where(i => i.ClassId == viewModel.ClassId).OrderBy(i=>i.Subject.Name).ThenBy(i=>i.Student.Name).ToList();
             viewModel.ResultWithStudent = result;
             return PartialView("_ResultByClass", viewModel);
         }
@@ -175,7 +175,66 @@ namespace Treeview_2.Controllers
         public ActionResult AddResultBySubject(int SchoolId)
         {
             ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == SchoolId), "Id", "Name");
+            var vModel = new AddResultBySubject() { SchoolId = SchoolId };
             
+            return View(vModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddResultBySubject(AddResultBySubject viewModel, FormCollection form)
+        {
+            ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == viewModel.SchoolId), "Id", "Name");
+            var students = db.Students.Where(i => i.SchoolClassId == viewModel.ClassId).ToList();
+            foreach(var student in students)
+            {
+                var grade = form["Grade_" + student.Id].ToString();
+                var markString = form["Mark_" + student.Id].ToString();
+                double mark = 0.0;
+                double.TryParse(markString, out mark);
+                var result = new Result() { 
+                    ClassId= viewModel.ClassId,Grade = grade, MarkPercentage= mark,SchoolId= viewModel.SchoolId, StudentId= student.Id,SubjectId= viewModel.SubjectId
+                };
+                db.Results.Add(result);
+            }
+            db.SaveChanges();
+
+            return View();
+        }
+        [HttpGet]
+        public ActionResult GetSubjectwiseResult(int subjectId,int classId)
+        {
+            var students = db.Students.Where(i => i.SchoolClassId == classId).ToList();
+            var viewModel = new AddResultBySubject();
+            viewModel.Students = students;
+            viewModel.ClassId = classId;
+            viewModel.SubjectId = subjectId;
+            return PartialView("_AddResultBySubject",viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult GetStudentwiseResult(int studentId, int classId)
+        {
+            var subjects = db.Subjects.Where(i => i.SchoolClassId == classId).ToList();
+            var viewModel = new AddResultByStudent();
+            viewModel.Subjects = subjects;
+            viewModel.ClassId = classId;
+            viewModel.StudentId = studentId;
+            return PartialView("_AddResultByStudent", viewModel);
+        }
+
+        [HttpGet]
+        public ActionResult AddResultByStudent(int SchoolId)
+        {
+            ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == SchoolId), "Id", "Name");
+            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddResultByStudent(AddResultByStudent viewModel,FormCollection form)
+        {
+            ViewBag.ClassList = new SelectList(db.SchoolClasses.Where(i => i.SchoolId == viewModel.SchoolId), "Id", "Name");
+
             return View();
         }
     }

@@ -1,0 +1,36 @@
+﻿@model Treeview_2.Models.AddResultBySubject
+
+<div class="row">
+    <table class="table table-striped">
+        <tr>
+            <th>Student Name</th>
+            <th>Grade</th>
+            <th>Achieved Mark(%)</th>
+        </tr>
+        @if(Model!= null && Model.Students != null && Model.Students.Count()>0)
+        {
+           for(int i=0;i<Model.Students.Count();i++)
+           {
+               <tr>
+                   <td>
+                       @Model.Students[i].Name
+                   </td>
+                   <td>
+                       <input type="text" name="Grade_@Model.Students[i].Id" class="form-control" />
+                   </td>
+                   <td>
+                       <input type="number" name="Mark_@Model.Students[i].Id" class="form-control"/>
+                   </td>
+               </tr>
+           }
+               
+        }
+        else
+        {
+            <tr>
+                <td rowspan="3">No Students found.</td>
+            </tr>
+        }
+    </table>
+        <input type="submit" value="Save" class="btn btn-primary pull-right" />
+</div>

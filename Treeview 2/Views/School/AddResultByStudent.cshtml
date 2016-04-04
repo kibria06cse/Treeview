@@ -1,1 +1,85 @@
 ﻿
+@model Treeview_2.Models.AddResultByStudent
+
+@{
+    ViewBag.Title = "Add Result By Subject";
+}
+
+<h2>ResultByClass</h2>
+@using (Html.BeginForm("AddResultByStudent", "School", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Search Student By Class</label>
+                    @*@Html.Label("Search Student By Class", new { @class="form-control"})*@
+                    @Html.HiddenFor(m => m.SchoolId)
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(m => m.ClassId, ViewBag.ClassList as IEnumerable<SelectListItem>, "Select Class", new { @class = "form-control", @onchange = "loadStudents()" })
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(m => m.StudentId, new List<SelectListItem>(), "Select Student", new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <button id="btnSearch" class="btn btn-primary" type="button" onclick="GetStudentwiseResult()">Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="divPartial">
+            @Html.Partial("_AddResultByStudent", Model)
+
+        </div>
+    </div>
+
+}
+@section Scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#divPartial").hide();
+    });
+
+    function GetStudents()
+    {
+
+    }
+    function loadStudents() {
+        var classId = $("#ClassId").val();
+        var schoolId=
+        $.ajax({
+            type: "GET",
+            url: '/School/GetStudentByClass',
+            dataType: 'json',
+            data: { ClassId: classId } ,
+            success: function (data) {
+                var markup = "<option value='0'>Select Student</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#StudentId").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    }
+    function GetStudentwiseResult() {
+        var classId = $("#ClassId").val();
+        var studentId = $("#StudentId").val();
+        var formData = $("#form-Search").serializeArray();
+        $.ajax({
+            type: "GET",
+            url: "/School/GetStudentwiseResult",
+            data: { studentId: studentId, classId: classId },
+            success: success,
+        });
+        return false;
+    }
+
+    function success(result)
+    {
+        $("#divPartial").show();
+    }
+    </script>
+}
