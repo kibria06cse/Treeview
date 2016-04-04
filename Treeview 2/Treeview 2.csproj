@@ -159,9 +159,21 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DistrictController.cs" />
+    <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ResultController.cs" />
+    <Compile Include="Controllers\SchoolClassController.cs" />
+    <Compile Include="Controllers\SchoolController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="Controllers\ThanaController.cs" />
     <Compile Include="Controllers\TreeHierarchiesController.cs" />
+    <Compile Include="Controllers\UnionController.cs" />
+    <Compile Include="Controllers\VillageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -171,6 +183,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AddResultByStudent.cs" />
+    <Compile Include="Models\AddResultBySubject.cs" />
     <Compile Include="Models\Base.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Division.cs" />
@@ -178,8 +192,12 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LocationType.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Result.cs" />
+    <Compile Include="Models\ResultByClassViewModel.cs" />
     <Compile Include="Models\School.cs" />
+    <Compile Include="Models\SchoolClass.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Thana.cs" />
     <Compile Include="Models\Treeview.cs" />
     <Compile Include="Models\Union.cs" />
@@ -252,9 +270,72 @@
     <Content Include="Views\TreeHierarchies\Details.cshtml" />
     <Content Include="Views\TreeHierarchies\Edit.cshtml" />
     <Content Include="Views\TreeHierarchies\Index.cshtml" />
+    <Content Include="Views\District\Create.cshtml" />
+    <Content Include="Views\District\Delete.cshtml" />
+    <Content Include="Views\District\Details.cshtml" />
+    <Content Include="Views\District\Edit.cshtml" />
+    <Content Include="Views\District\Index.cshtml" />
+    <Content Include="Views\Base\Create.cshtml" />
+    <Content Include="Views\Base\Delete.cshtml" />
+    <Content Include="Views\Base\Details.cshtml" />
+    <Content Include="Views\Base\Edit.cshtml" />
+    <Content Include="Views\Base\Index.cshtml" />
+    <Content Include="Views\Division\Create.cshtml" />
+    <Content Include="Views\Division\Delete.cshtml" />
+    <Content Include="Views\Division\Details.cshtml" />
+    <Content Include="Views\Division\Edit.cshtml" />
+    <Content Include="Views\Division\Index.cshtml" />
+    <Content Include="Views\Thana\Create.cshtml" />
+    <Content Include="Views\Thana\Delete.cshtml" />
+    <Content Include="Views\Thana\Details.cshtml" />
+    <Content Include="Views\Thana\Edit.cshtml" />
+    <Content Include="Views\Thana\Index.cshtml" />
+    <Content Include="Views\Union\Create.cshtml" />
+    <Content Include="Views\Union\Delete.cshtml" />
+    <Content Include="Views\Union\Details.cshtml" />
+    <Content Include="Views\Union\Edit.cshtml" />
+    <Content Include="Views\Union\Index.cshtml" />
+    <Content Include="Views\Village\Create.cshtml" />
+    <Content Include="Views\Village\Delete.cshtml" />
+    <Content Include="Views\Village\Details.cshtml" />
+    <Content Include="Views\Village\Edit.cshtml" />
+    <Content Include="Views\Village\Index.cshtml" />
+    <Content Include="Views\School\Create.cshtml" />
+    <Content Include="Views\School\Delete.cshtml" />
+    <Content Include="Views\School\Details.cshtml" />
+    <Content Include="Views\School\Edit.cshtml" />
+    <Content Include="Views\School\Index.cshtml" />
+    <Content Include="Views\Student\Create.cshtml" />
+    <Content Include="Views\Student\Delete.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Student\Edit.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\SchoolClass\Create.cshtml" />
+    <Content Include="Views\SchoolClass\Delete.cshtml" />
+    <Content Include="Views\SchoolClass\Details.cshtml" />
+    <Content Include="Views\SchoolClass\Edit.cshtml" />
+    <Content Include="Views\SchoolClass\Index.cshtml" />
+    <Content Include="Views\Subject\Create.cshtml" />
+    <Content Include="Views\Subject\Delete.cshtml" />
+    <Content Include="Views\Subject\Details.cshtml" />
+    <Content Include="Views\Subject\Edit.cshtml" />
+    <Content Include="Views\Subject\Index.cshtml" />
+    <Content Include="Views\Result\Create.cshtml" />
+    <Content Include="Views\Result\Delete.cshtml" />
+    <Content Include="Views\Result\Details.cshtml" />
+    <Content Include="Views\Result\Edit.cshtml" />
+    <Content Include="Views\Result\Index.cshtml" />
+    <Content Include="Views\Result\School.cshtml" />
+    <Content Include="Views\School\ResultByClass.cshtml" />
+    <Content Include="Views\School\_ResultByClass.cshtml" />
+    <Content Include="Views\School\AddResultByStudent.cshtml" />
+    <Content Include="Views\School\AddResultBySubject.cshtml" />
+    <Content Include="Views\School\_AddResultBySubject.cshtml" />
+    <Content Include="Views\School\_AddResultByStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Report\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

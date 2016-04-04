@@ -27,11 +27,34 @@ namespace Treeview_2.Models
         public DbSet<Treeview> Treeviews { get; set; }
         public DbSet<TreeHierarchy> TreeHierarchys { get; set; }
         public DbSet<Division> Divisions { get; set; }
+        public DbSet<District> Districts { get; set; }
         public DbSet<Base> Bases { get; set; }
+
+        public DbSet<Thana> Thanas { get; set; }
+
+        public DbSet<Union> Unions { get; set; }
+
+        public DbSet<Village> Villages { get; set; }
+
+        public DbSet<School> Schools { get; set; }
+
+        public DbSet<Student> Students { get; set; }
+        public DbSet<SchoolClass> SchoolClasses { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Result> Results { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Result>().HasRequired(c => c.Class).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Result>().HasRequired(c => c.School).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Result>().HasRequired(c => c.Subject).WithMany().WillCascadeOnDelete(false);
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
