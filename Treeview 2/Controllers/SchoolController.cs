@@ -37,10 +37,13 @@ namespace Treeview_2.Controllers
         }
 
         // GET: School/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.VillageId = new SelectList(db.Villages, "Id", "Name");
-            return View();
+            var model = new School();
+            model.VillageId = id.HasValue ? id.Value : 0;
+
+            return View(model);
         }
 
         // POST: School/Create

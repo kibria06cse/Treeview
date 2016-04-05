@@ -2,12 +2,15 @@
 
 @{
     ViewBag.Title = "Index";
+    int id = 0;
+    var urlId = Url.RequestContext.RouteData.Values["id"] != null ? Url.RequestContext.RouteData.Values["id"].ToString() : "";
+    int.TryParse(urlId, out id);
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+  @Html.ActionLink("Create New Village/Area", "Create", "Village", new { id = id }, null)
 </p>
 <table class="table">
     <tr>

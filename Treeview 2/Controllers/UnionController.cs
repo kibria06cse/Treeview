@@ -37,10 +37,12 @@ namespace Treeview_2.Controllers
         }
 
         // GET: Union/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.ThanaId = new SelectList(db.Thanas, "Id", "Name");
-            return View();
+            var model = new Union();
+            model.ThanaId = id.HasValue?id.Value:0;
+            return View(model);
         }
 
         // POST: Union/Create

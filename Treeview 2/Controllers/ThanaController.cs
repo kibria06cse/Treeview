@@ -37,10 +37,12 @@ namespace Treeview_2.Controllers
         }
 
         // GET: Thana/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.DistrictId = new SelectList(db.Districts, "Id", "Name");
-            return View();
+            var model = new Thana();
+            model.DistrictId = id.HasValue?id.Value:0;
+            return View(model);
         }
 
         // POST: Thana/Create

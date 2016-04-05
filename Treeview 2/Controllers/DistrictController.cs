@@ -37,10 +37,12 @@ namespace Treeview_2.Controllers
         }
 
         // GET: District/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
             ViewBag.DivisionId = new SelectList(db.Divisions, "Id", "Name");
-            return View();
+            var model = new District();
+            model.DivisionId = id.HasValue?id.Value:0;
+            return View(model);
         }
 
         // POST: District/Create
