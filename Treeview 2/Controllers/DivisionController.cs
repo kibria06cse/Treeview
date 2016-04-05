@@ -126,7 +126,12 @@ namespace Treeview_2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult DistrictsByDivision(int id)
+        {
+            var districts = db.Districts.Where(i => i.DivisionId == id).Include(i => i.Division).AsEnumerable();
 
+            return View("~/Views/District/Index.cshtml",districts);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

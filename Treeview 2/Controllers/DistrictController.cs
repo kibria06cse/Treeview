@@ -129,6 +129,14 @@ namespace Treeview_2.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public ActionResult ThanaByDistrict(int id)
+        {
+            var districts = db.Thanas.Where(i => i.DistrictId == id).Include(i => i.District).AsEnumerable();
+
+            return View("~/Views/Thana/Index.cshtml",districts);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

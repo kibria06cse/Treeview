@@ -127,6 +127,12 @@ namespace Treeview_2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult SchoolByArea(int id)
+        {
+            var schools = db.Schools.Where(i => i.VillageId == id).Include(i => i.Village).AsEnumerable();
+
+            return View("~/Views/School/Index.cshtml", schools);
+        }
 
         protected override void Dispose(bool disposing)
         {

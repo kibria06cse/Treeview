@@ -129,6 +129,13 @@ namespace Treeview_2.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult VillagesByUnion(int id)
+        {
+            var villages = db.Villages.Where(i => i.UnionId == id).Include(i => i.Union).AsEnumerable();
+
+            return View("~/Views/Village/Index.cshtml", villages);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

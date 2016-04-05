@@ -71,6 +71,12 @@ namespace Treeview_2.Controllers
 
         public ActionResult ChangeUrl(int Id)
         {
+            var treeview = db.Treeviews.Find(Id);
+            if(treeview.HierarchyTypeId== (int)Enums.Base)
+            {
+                var aa = db.Bases.Where(i => i.Id == treeview.KeyOfThatHierarchy).FirstOrDefault();
+                
+            }
             return View();
         }
 

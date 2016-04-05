@@ -122,7 +122,12 @@ namespace Treeview_2.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
+        public ActionResult DivisionByBase(int id)
+        {
+            var divisions = db.Divisions.Where(i => i.BaseId == id).Include(i=>i.Base).AsEnumerable();
+            
+            return View("~/Views/Division/Index.cshtml",divisions);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

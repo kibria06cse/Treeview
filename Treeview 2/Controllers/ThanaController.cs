@@ -129,6 +129,13 @@ namespace Treeview_2.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult UnionByThana(int id)
+        {
+            var unions = db.Unions.Where(i => i.ThanaId == id).Include(i => i.Thana).AsEnumerable();
+
+            return View("~/Views/Union/Index.cshtml",unions);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
