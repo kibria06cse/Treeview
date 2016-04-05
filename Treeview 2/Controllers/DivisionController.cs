@@ -132,6 +132,11 @@ namespace Treeview_2.Controllers
 
             return View("~/Views/District/Index.cshtml",districts);
         }
+
+        public ActionResult DivisionFromBase(IEnumerable<Division> divisions)
+        {
+            return View("Index", divisions);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

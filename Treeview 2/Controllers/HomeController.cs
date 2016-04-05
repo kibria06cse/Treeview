@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Treeview_2.Models;
+using System.Data.Entity;
 
 namespace Treeview_2.Controllers
 {
@@ -74,9 +75,29 @@ namespace Treeview_2.Controllers
             var treeview = db.Treeviews.Find(Id);
             if(treeview.HierarchyTypeId== (int)Enums.Base)
             {
-                var aa = db.Bases.Where(i => i.Id == treeview.KeyOfThatHierarchy).FirstOrDefault();
-                
+                return RedirectToAction("DivisionByBase", "Base", new { id = treeview.KeyOfThatHierarchy });                
             }
+            else if (treeview.HierarchyTypeId == (int)Enums.Division)
+            {
+                return RedirectToAction("DistrictsByDivision", "Division", new { id = treeview.KeyOfThatHierarchy });
+            }
+           else if (treeview.HierarchyTypeId == (int)Enums.District)
+            {
+                return RedirectToAction("ThanaByDistrict", "District", new { id = treeview.KeyOfThatHierarchy });
+            }
+            if (treeview.HierarchyTypeId == (int)Enums.Thana)
+            {
+                return RedirectToAction("UnionByThana", "Thana", new { id = treeview.KeyOfThatHierarchy });
+            }
+            else  if (treeview.HierarchyTypeId == (int)Enums.Union)
+            {
+                return RedirectToAction("VillageByUnion", "Union", new { id = treeview.KeyOfThatHierarchy });
+            }
+            else if (treeview.HierarchyTypeId == (int)Enums.Village)
+            {
+                return RedirectToAction("SchoolByArea", "Village", new { id = treeview.KeyOfThatHierarchy });
+            }
+           
             return View();
         }
 
