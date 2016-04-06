@@ -131,7 +131,7 @@ namespace Treeview_2.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult VillagesByUnion(int id)
+        public ActionResult VillageByUnion(int id)
         {
             var villages = db.Villages.Where(i => i.UnionId == id).Include(i => i.Union).AsEnumerable();
 

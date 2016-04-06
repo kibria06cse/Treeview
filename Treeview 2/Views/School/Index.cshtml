@@ -35,7 +35,10 @@
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Results", "School", "Result", new { SchoolId = item.Id },null)
+            @Html.ActionLink("Results", "School", "Result", new { SchoolId = item.Id },null) |
+            @Html.ActionLink("Students", "Create","Student", new { schoolId = item.Id },null) |
+            @Html.ActionLink("Subject", "Create", "Subject", new { schoolId = item.Id }, null) 
+
         </td>
     </tr>
 }

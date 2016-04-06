@@ -37,9 +37,10 @@ namespace Treeview_2.Controllers
         }
 
         // GET: Subject/Create
-        public ActionResult Create()
+        public ActionResult Create(int? schoolId)
         {
-            ViewBag.SchoolClassId = new SelectList(db.SchoolClasses, "Id", "Name");
+            ViewBag.SchoolClassId = schoolId.HasValue ? new SelectList(db.SchoolClasses.Where(i => i.SchoolId == schoolId), "Id", "Name") : new SelectList(db.SchoolClasses, "Id", "Name");
+            
             return View();
         }
 

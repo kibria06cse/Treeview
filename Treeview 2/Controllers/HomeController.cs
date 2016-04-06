@@ -97,6 +97,11 @@ namespace Treeview_2.Controllers
             {
                 return RedirectToAction("SchoolByArea", "Village", new { id = treeview.KeyOfThatHierarchy });
             }
+
+            else if (treeview.HierarchyTypeId == (int)Enums.School)
+            {
+                return RedirectToAction("School","Result", new { SchoolId = treeview.KeyOfThatHierarchy });
+            }
            
             return View();
         }

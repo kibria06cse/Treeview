@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-   
+
 
 
 </head>
@@ -33,23 +33,11 @@
                             <li>@Html.ActionLink("Union/Ward", "Index", "Union")</li>
                             <li>@Html.ActionLink("Village/Area", "Index", "Village")</li>
                             <li>@Html.ActionLink("School", "Index", "School")</li>
-                            <li>@Html.ActionLink("School Class", "Index", "SchoolClass")</li>
-                            <li>@Html.ActionLink("Subject", "Index", "Subject")</li>
-                            <li class="dropdown-submenu">
-                                @Html.ActionLink("Student", "Index", "Student")
-                            <a tabindex="-1" href="#">More options</a>
-                            <ul class="dropdown-menu">
-                                <li>1</li>
-                                <li>2</li>
-                            </ul>
-                        </li>
-                            <li>@Html.ActionLink("Result", "Index", "Result")</li>
-
                         </ul>
                     </li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                  
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -67,7 +55,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqTree")
     @Scripts.Render("~/bundles/jqueryCookie")
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>
